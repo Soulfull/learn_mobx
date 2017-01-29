@@ -1,10 +1,23 @@
+import mobx, { observable, computed } from 'mobx'
+
 class TodoStore {
 	constructor() {
-		this.todos = []
+		mobx.autorun(() => console.log(this.report));
 	}
 
-	get completedTodosCount() {
+	@observable todos = []
+
+	@computed get completedTodosCount() {
 		return this.todos.filter(todo => todo.completed === true).length;
+	}
+
+	@computed get report() {
+		if (this.todos.length === 0) {
+			return 'none!!!'
+		}
+
+		return `Next todo "${this.todos[0].title}". ` +
+		`Progress: ${this.completedTodosCount}/${this.todos.length}`
 	}
 
 	addTodo(title) {
@@ -15,15 +28,6 @@ class TodoStore {
 		}
 
 		this.todos.push(todo);
-	}
-
-	report() {
-		if (this.todos.length === 0) {
-			return 'none'
-		}
-
-		return `Next todo "${this.todos[0].title}". ` +
-		`Progress: ${this.completedTodosCount}/${this.todos.length}`
 	}
 }
 
