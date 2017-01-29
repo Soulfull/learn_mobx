@@ -1,8 +1,11 @@
-import mobx, { observable, computed } from 'mobx'
+import {autorun, observable, computed } from 'mobx'
+import TodoList from './components/TodoList'
+import React from 'react'
+import { render } from 'react-dom'
 
 class TodoStore {
 	constructor() {
-		mobx.autorun(() => console.log(this.report));
+		autorun(() => console.log(this.report));
 	}
 
 	@observable todos = []
@@ -22,7 +25,7 @@ class TodoStore {
 
 	addTodo(title) {
 		let todo = {
-			id: Math.random(),
+			id: 3 + Math.random() * 3,
 			title: title,
 			completed: false
 		}
@@ -31,6 +34,8 @@ class TodoStore {
 	}
 }
 
-const todoStore = new TodoStore;
+window.todoStore = new TodoStore;
 
-console.log(todoStore);
+todoStore.addTodo('Learn Mobx');
+
+render(<TodoList store={todoStore}/>, document.getElementById('root'));
