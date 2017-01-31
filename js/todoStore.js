@@ -2,6 +2,8 @@ import {autorun, observable, computed } from 'mobx'
 import TodoList from './components/TodoList'
 import React from 'react'
 import { render } from 'react-dom'
+import counterStore from './counterStore'
+import Counter from './components/Counter'
 
 class TodoStore {
 	constructor() {
@@ -39,3 +41,4 @@ window.todoStore = new TodoStore;
 todoStore.addTodo('Learn Mobx');
 
 render(<TodoList store={todoStore}/>, document.getElementById('root'));
+render(<Counter store={counterStore}/>, document.getElementById('counter'))
