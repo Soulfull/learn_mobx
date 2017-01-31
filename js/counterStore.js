@@ -10,6 +10,14 @@ class CounterStore {
 	@computed get report() {
 		console.log(`Counter from counterStore = ${this.count}`)
 	}
+
+	increment() {
+		this.count++;
+	}
+
+	decrement() {
+		this.count--;
+	}
 }
 window.counterStore = new CounterStore;
 export default counterStore
